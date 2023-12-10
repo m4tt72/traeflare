@@ -12,7 +12,7 @@ version: "3"
 services:
   ...
   traeflare:
-    image: docker.lan.fathi.me/traeflare:latest
+    image: ghcr.io/m4tt72/traeflare:main
     container_name: traeflare
     env_file: .env
     restart: unless-stopped
