@@ -7,13 +7,21 @@ const Environment = {
   CF_API_KEY: process.env.CF_API_KEY as string,
   CF_DNS_API_TOKEN: process.env.CF_DNS_API_TOKEN as string,
   DOMAIN_NAME: process.env.DOMAIN_NAME as string,
+  PROXIED: process.env.PROXIED === 'true',
   PRUNE_RECORDS: process.env.PRUNE_RECORDS === 'true',
 };
 
 Object.entries(Environment).forEach(([key, value]) => {
-  if (!value) {
+  if (value === undefined || value === null || value === '') {
     throw new Error(`Missing environment variable: ${key}`);
   }
 });
+
+console.log(
+  Object.entries(Environment)
+    .sort(([keyA], [keyB]) => keyA.localeCompare(keyB))
+    .map(([key, value]) => `${key}=${value}`)
+    .join('\n'),
+);
 
 export default Environment;

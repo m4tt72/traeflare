@@ -13,18 +13,19 @@ const main = async () => {
   console.log(`Running cron job at ${new Date().toISOString()}`);
 
   try {
-    const records = await getDNSRecords();
-    const routes = await getRoutes();
+    const [routes, records] = await Promise.all([getRoutes(), getDNSRecords()]);
+
+    console.log(`Found ${routes.length} routes and ${records.length} records`);
 
     const dnsRecordsToCreate = routes
       .filter((route) => !records.some((record) => record.name === route.rule))
       .map(
         (route) =>
           ({
-            type: Environment.RECORD_TYPE,
             name: route.rule,
+            type: Environment.RECORD_TYPE,
             content: Environment.DOMAIN_NAME,
-            proxied: false,
+            proxied: Environment.PROXIED,
             comment: `Created by Traeflare at ${new Date().toISOString()}`,
           }) as CreateDNSRecordData,
       );
@@ -52,6 +53,8 @@ const main = async () => {
     }
   } catch (error) {
     console.error(error);
+
+    throw error;
   }
 };
 
