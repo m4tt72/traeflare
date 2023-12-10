@@ -1,0 +1,25 @@
+{
+  "name": "traeflare",
+  "module": "src/index.ts",
+  "type": "module",
+  "description": "Automatically sync Traefik records with Cloudflare DNS",
+  "author": {
+    "name": "Yassine Fathi",
+    "email": "yassine@fathi.me",
+    "url": "https://fathi.me"
+  },
+  "scripts": {
+    "dev": "bun run --watch src/index.ts",
+    "start": "bun run src/index.ts",
+    "build": "bun build src/index.ts --target bun --outdir dist --minify --splitting"
+  },
+  "devDependencies": {
+    "bun-types": "latest",
+    "eslint": "^8.55.0",
+    "prettier": "^3.1.1"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {}
+}

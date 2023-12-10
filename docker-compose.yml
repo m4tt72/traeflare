@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+  updater:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: runner
+    container_name: updater
+    env_file: .env
