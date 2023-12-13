@@ -10,12 +10,8 @@ import { CreateDNSRecordData } from './interfaces/cloudflare.js';
 console.log(`Starting Traeflare at ${new Date().toISOString()}`);
 
 const main = async () => {
-  console.log(`Running cron job at ${new Date().toISOString()}`);
-
   try {
     const [routes, records] = await Promise.all([getRoutes(), getDNSRecords()]);
-
-    console.log(`Found ${routes.length} routes and ${records.length} records`);
 
     const dnsRecordsToCreate = routes
       .filter((route) => !records.some((record) => record.name === route.rule))
