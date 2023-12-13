@@ -30,9 +30,7 @@ const main = async () => {
           }) as CreateDNSRecordData,
       );
 
-    if (dnsRecordsToCreate.length === 0) {
-      console.log('No DNS records to create');
-    } else {
+    if (dnsRecordsToCreate.length !== 0) {
       const responses = await createDNSRecords(dnsRecordsToCreate);
 
       console.log(`Created ${responses.length} DNS records`);
@@ -43,9 +41,7 @@ const main = async () => {
         .filter((record) => !routes.some((route) => route.rule === record.name))
         .map((record) => record.id);
 
-      if (dnsRecordsToRemove.length === 0) {
-        console.log('No DNS records to remove');
-      } else {
+      if (dnsRecordsToRemove.length !== 0) {
         const responses = await removeDNSRecords(dnsRecordsToRemove);
 
         console.log(`Removed ${responses.length} DNS records`);
